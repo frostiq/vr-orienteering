@@ -367,6 +367,7 @@ GameObject:
   - component: {fileID: 1321011779}
   - component: {fileID: 1321011778}
   - component: {fileID: 1321011777}
+  - component: {fileID: 1321011782}
   m_Layer: 0
   m_Name: FPSController
   m_TagString: Untagged
@@ -607,6 +608,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1321011782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1321011776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46e7f80398015c04690a63566a0aa451, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1321011776}
 --- !u!1001 &1330541423
 Prefab:
   m_ObjectHideFlags: 0
