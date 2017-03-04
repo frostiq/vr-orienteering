@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TaskControllerScript : MonoBehaviour {
     public GameObject player;
+    private string myPosition;
 
     List<KeyValuePair<float, float>> controlPoints = new List<KeyValuePair<float, float>>();
     int currentPoint;
@@ -24,6 +25,11 @@ public class TaskControllerScript : MonoBehaviour {
 
     }
 
+    private void OnGUI()
+    {
+        GUI.Label(new Rect(140, 30, 400, 200), myPosition);
+    }
+
     void UpdatePlayerPosition() {
         Debug.Log(controlPoints.Count);
         Vector3 position = player.transform.position;
@@ -32,13 +38,13 @@ public class TaskControllerScript : MonoBehaviour {
                 currentPoint++;
                 Debug.Log("INCREMENTED: " + currentPoint);
                 if (currentPoint == controlPoints.Count) {
-                    Debug.Log("SUCCESS");
+                    myPosition = "You have finished the task!";
                     return;
                 } else {
                     Debug.Log("Move to the next point. Next point: " + controlPoints[currentPoint]);
                 }
             }
-            Debug.Log("CURRENT POSITION:\t" + position + ". Current point: " + controlPoints[currentPoint].Key + " " + controlPoints[currentPoint].Value);
+            myPosition = "CURRENT POSITION:\n\t" + position + ".\nCURRENT TARGET POINT:\n\t" + controlPoints[currentPoint].Key + " " + controlPoints[currentPoint].Value;
         }
     }
 
