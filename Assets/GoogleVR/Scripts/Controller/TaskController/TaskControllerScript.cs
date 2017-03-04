@@ -33,6 +33,7 @@ public class TaskControllerScript : MonoBehaviour {
                 Debug.Log("INCREMENTED: " + currentPoint);
                 if (currentPoint == controlPoints.Count) {
                     Debug.Log("SUCCESS");
+                    return;
                 } else {
                     Debug.Log("Move to the next point. Next point: " + controlPoints[currentPoint]);
                 }
@@ -45,6 +46,6 @@ public class TaskControllerScript : MonoBehaviour {
         float x1 = controlPoints[currentPoint].Key;
         float z1 = controlPoints[currentPoint].Value;
         double dist = Mathf.Sqrt(Mathf.Pow(x1 - x, 2) + Mathf.Pow(z1 - z, 2));
-        return dist < 1.0;
+        return dist < 5.0;
     }
 }
