@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TaskControllerScript : MonoBehaviour {
     public GameObject player;
+    public AudioClip finishedSound;
     public AudioSource successSoundSource;
     private string myPosition;
 
@@ -37,12 +38,14 @@ public class TaskControllerScript : MonoBehaviour {
         if (currentPoint < controlPoints.Count) {
             if (inRadius(position.x, position.z)) {
                 currentPoint++;
-                successSoundSource.Play();
                 Debug.Log("INCREMENTED: " + currentPoint);
                 if (currentPoint == controlPoints.Count) {
                     myPosition = "You have finished the task!";
+                    successSoundSource.clip = finishedSound;
+                    successSoundSource.Play();
                     return;
                 } else {
+                    successSoundSource.Play();
                     Debug.Log("Move to the next point. Next point: " + controlPoints[currentPoint]);
                 }
             }
