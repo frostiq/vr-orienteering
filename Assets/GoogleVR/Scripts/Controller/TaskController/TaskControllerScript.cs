@@ -42,6 +42,7 @@ public class TaskControllerScript : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+        playerTransform = player.transform;
 		controlPoints = new List<KeyValuePair<float, float>>();
 		instruction = new Instruction();
 
@@ -57,7 +58,7 @@ public class TaskControllerScript : MonoBehaviour {
         controlPoints.Add(new KeyValuePair<float, float>(270, 475));
         controlPoints.Add(new KeyValuePair<float, float>(320, 371));
         controlPoints.Add(new KeyValuePair<float, float>(421, 296));
-        controlPoints.Add(new KeyValuePair<float, float>(247, 110));
+        controlPoints.Add(new KeyValuePair<float, float>(257, 120));
 
 		FillTargets();
 
@@ -78,7 +79,7 @@ public class TaskControllerScript : MonoBehaviour {
 			});
 		targets.Add (
 			new Instruction {
-				DestinationAzimuth = 230, 
+				DestinationAzimuth = 240, 
 				LandmarkName = "валун"
 			});
 		targets.Add (
@@ -88,7 +89,7 @@ public class TaskControllerScript : MonoBehaviour {
 			});
 		targets.Add (
 			new Instruction {
-				DestinationAzimuth = 90, 
+				DestinationAzimuth = 140, 
 				LandmarkName = "грунтовая дорога"
 			});
 	}
