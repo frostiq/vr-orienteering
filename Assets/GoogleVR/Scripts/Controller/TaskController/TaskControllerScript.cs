@@ -3,43 +3,134 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TaskControllerScript : MonoBehaviour {
+	
     public GameObject player;
     public AudioClip finishedSound;
     public AudioSource successSoundSource;
+	public Transform playerTransform;
     
     private string myPosition;
     private int numberOfSteps;
-    List<KeyValuePair<float, float>> controlPoints = new List<KeyValuePair<float, float>>();
-    List<string> strs = new List<string>();
-
+    List<KeyValuePair<float, float>> controlPoints;
+	List<Instruction> targets;
     int currentPoint;
+
+	private GUIStyle instructionNameStyle;
+	private GUIStyle instructionTextStyle;
+
+	private const string nextPointStr = "Целевой азимут: ";
+	private const string landmarkStr = "Ориентир: ";
+	private const string azimuthStr = "Текущий азимут: ";
+	private const string taskCompletedStr = "Задание выполнено. Ваше время: ";
+
+	private Instruction instruction;
+
+	internal class Instruction
+	{
+		public int DestinationAzimuth { get; set; }
+
+		public int CurrentAzimuth { get; set; }
+
+		public string LandmarkName { get; set; }
+
+		public bool TaskCompleted { get; set; }
+
+		public Instruction()
+		{
+		}
+	}
 
     // Use this for initialization
     void Start() {
+		controlPoints = new List<KeyValuePair<float, float>>();
+		instruction = new Instruction();
+
+		instructionNameStyle = new GUIStyle();
+		instructionNameStyle.fontSize = 14;
+		instructionNameStyle.normal.textColor = Color.white;
+
+		instructionTextStyle = new GUIStyle();
+		instructionTextStyle.fontSize = 14;
+		instructionTextStyle.normal.textColor = Color.green;
+
         controlPoints.Add(new KeyValuePair<float, float>(234, 579));
         controlPoints.Add(new KeyValuePair<float, float>(270, 475));
         controlPoints.Add(new KeyValuePair<float, float>(320, 371));
         controlPoints.Add(new KeyValuePair<float, float>(421, 296));
         controlPoints.Add(new KeyValuePair<float, float>(247, 110));
-        strs.Add("Следущая точка: азимут 190, ориентир развилка");
-        strs.Add("Точка пройдена, следущая точка: азимут 230, ориентир валун");
-        strs.Add("Точка пройдена, следущая точка: азимут 265, ориентир высохшее дерево");
-        strs.Add("Точка пройдена, следущая точка: азимут 90, грунтовая дорога");
+
+		FillTargets();
+
         numberOfSteps = 0;
-        
         currentPoint = 0;
+
         InvokeRepeating("UpdatePlayerPosition", 0, 1);
     }
 
+	private void FillTargets()
+	{
+		targets = new List<Instruction>();
+
+		targets.Add (
+			new Instruction {
+				DestinationAzimuth = 190, 
+				LandmarkName = "развилка"
+			});
+		targets.Add (
+			new Instruction {
+				DestinationAzimuth = 230, 
+				LandmarkName = "валун"
+			});
+		targets.Add (
+			new Instruction {
+				DestinationAzimuth = 265, 
+				LandmarkName = "высохшее дерево"
+			});
+		targets.Add (
+			new Instruction {
+				DestinationAzimuth = 90, 
+				LandmarkName = "грунтовая дорога"
+			});
+	}
+		
+
     // Update is called once per frame
     void Update() {
-
+		UpdateCurrentAzimuth ();
     }
+
+	private void UpdateCurrentAzimuth()
+	{
+		int tmp = 360 - (int)playerTransform.eulerAngles.y;
+		if (tmp == 360)
+		{
+			tmp = 0;
+		}
+		instruction.CurrentAzimuth = tmp;
+	}
 
     private void OnGUI()
     {
-        GUI.Label(new Rect(140, 30, 400, 200), myPosition);
+		if (!instruction.TaskCompleted) {
+			GUILayout.BeginArea(new Rect(210, 25, 200, 200));
+			ShowSingleInstruction (nextPointStr, instruction.DestinationAzimuth.ToString());
+			ShowSingleInstruction (landmarkStr, instruction.LandmarkName.ToString());
+			ShowSingleInstruction (azimuthStr, instruction.CurrentAzimuth.ToString());
+			GUILayout.EndArea ();
+		}
+		else 
+		{
+			ShowSingleInstruction (taskCompletedStr, Time.time.ToString());
+		}
     }
+
+	private void ShowSingleInstruction(string instructionName, string instructionText)
+	{
+		GUILayout.BeginHorizontal ("box");
+		GUILayout.Label (instructionName, instructionNameStyle);
+		GUILayout.Label (instructionText, instructionTextStyle);
+		GUILayout.EndHorizontal();
+	}
 
     void UpdatePlayerPosition() {
         Debug.Log(controlPoints.Count);
@@ -50,7 +141,7 @@ public class TaskControllerScript : MonoBehaviour {
                 currentPoint++;
                 Debug.Log("INCREMENTED: " + currentPoint);
                 if (currentPoint == controlPoints.Count) {
-                    myPosition = "Задание выполнено. Ваше время "+ Time.time;
+					instruction.TaskCompleted = true;
                     successSoundSource.clip = finishedSound;
                     successSoundSource.Play();
                     return;
@@ -60,7 +151,8 @@ public class TaskControllerScript : MonoBehaviour {
                 }
             }
             //myPosition = "CURRENT POSITION:\n\t" + position + ".\nCURRENT TARGET POINT:\n\t" + controlPoints[currentPoint].Key + " " + controlPoints[currentPoint].Value;
-            myPosition = strs[currentPoint - 1];
+			instruction = targets[currentPoint - 1];
+			UpdateCurrentAzimuth ();
         }
     }
 
