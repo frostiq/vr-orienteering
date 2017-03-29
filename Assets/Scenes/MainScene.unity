@@ -850,6 +850,7 @@ MonoBehaviour:
   player: {fileID: 1321011776}
   finishedSound: {fileID: 8300000, guid: e7ee8cd755767c541bd2d2ee0e00b192, type: 3}
   successSoundSource: {fileID: 1321011783}
+  playerTransform: {fileID: 1828633791}
 --- !u!82 &1321011783
 AudioSource:
   m_ObjectHideFlags: 0

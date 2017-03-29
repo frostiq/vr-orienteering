@@ -43,7 +43,7 @@ public class TaskControllerScript : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        playerTransform = player.transform;
+        //playerTransform = player.transform;
 		controlPoints = new List<KeyValuePair<float, float>>();
 		instruction = new Instruction();
 
@@ -98,7 +98,6 @@ public class TaskControllerScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-		UpdateCurrentAzimuth ();
     }
     
 	private void UpdateCurrentAzimuth()
