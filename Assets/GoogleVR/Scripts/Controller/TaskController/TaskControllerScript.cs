@@ -46,7 +46,6 @@ public class TaskControllerScript : MonoBehaviour {
         //playerTransform = player.transform;
 		controlPoints = new List<KeyValuePair<float, float>>();
 		instruction = new Instruction();
-
 		instructionNameStyle = new GUIStyle();
 		instructionNameStyle.fontSize = 14;
 		instructionNameStyle.normal.textColor = Color.white;
@@ -109,13 +108,29 @@ public class TaskControllerScript : MonoBehaviour {
 		}
 		instruction.CurrentAzimuth = tmp;
 	}
+    private int AzimuthAngle()
+    {
+        Vector3 pos = player.transform.position;
+        float x = controlPoints[currentPoint].Key - pos.x;
+        float z = controlPoints[currentPoint].Value - pos.z;
+        float Cos = z / Mathf.Sqrt(x * x + z * z);
+        float angle = Mathf.Acos(Cos)*180/Mathf.PI;
+        //Debug.Log("angle =" + angle);
+        if (currentPoint == 4)
+        {
+            return (int)angle;
+        }
+        
+        return 360 - (int)angle;
+    }
 
     private void OnGUI()
     {
 		if (!instruction.TaskCompleted) {
 			GUILayout.BeginArea(new Rect(210, 25, 200, 200));
-			ShowSingleInstruction (nextPointStr, instruction.DestinationAzimuth.ToString());
-			ShowSingleInstruction (landmarkStr, instruction.LandmarkName.ToString());
+			//ShowSingleInstruction (nextPointStr, instruction.DestinationAzimuth.ToString());
+            ShowSingleInstruction(nextPointStr,AzimuthAngle().ToString() );
+            ShowSingleInstruction (landmarkStr, instruction.LandmarkName.ToString());
 			ShowSingleInstruction (azimuthStr, instruction.CurrentAzimuth.ToString());
 			GUILayout.EndArea ();
 		}
