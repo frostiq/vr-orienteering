@@ -14,6 +14,7 @@ public class TaskControllerScript : MonoBehaviour {
     List<KeyValuePair<float, float>> controlPoints;
 	List<Instruction> targets;
     int currentPoint;
+    private int resultTime;
 
 	private GUIStyle instructionNameStyle;
 	private GUIStyle instructionTextStyle;
@@ -79,12 +80,12 @@ public class TaskControllerScript : MonoBehaviour {
 			});
 		targets.Add (
 			new Instruction {
-				DestinationAzimuth = 240, 
+				DestinationAzimuth = 230, 
 				LandmarkName = "валун"
 			});
 		targets.Add (
 			new Instruction {
-				DestinationAzimuth = 265, 
+				DestinationAzimuth = 240, 
 				LandmarkName = "высохшее дерево"
 			});
 		targets.Add (
@@ -99,7 +100,7 @@ public class TaskControllerScript : MonoBehaviour {
     void Update() {
 		UpdateCurrentAzimuth ();
     }
-
+    
 	private void UpdateCurrentAzimuth()
 	{
 		int tmp = 360 - (int)playerTransform.eulerAngles.y;
@@ -121,7 +122,10 @@ public class TaskControllerScript : MonoBehaviour {
 		}
 		else 
 		{
-			ShowSingleInstruction (taskCompletedStr, Time.time.ToString());
+            int min = resultTime / 60;
+            int sec = resultTime % 60;
+            string strToShow = min + ":" + sec+":00";
+			ShowSingleInstruction (taskCompletedStr, /*Time.time.ToString()*/strToShow);
 		}
     }
 
@@ -143,6 +147,7 @@ public class TaskControllerScript : MonoBehaviour {
                 Debug.Log("INCREMENTED: " + currentPoint);
                 if (currentPoint == controlPoints.Count) {
 					instruction.TaskCompleted = true;
+                    resultTime = (int)Time.time;
                     successSoundSource.clip = finishedSound;
                     successSoundSource.Play();
                     return;
