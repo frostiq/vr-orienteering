@@ -127,7 +127,7 @@ public class TaskControllerScript : MonoBehaviour {
     private void OnGUI()
     {
 		if (!instruction.TaskCompleted) {
-			GUILayout.BeginArea(new Rect(210, 25, 200, 200));
+			GUILayout.BeginArea(new Rect(90, 150, 200, 200));
 			//ShowSingleInstruction (nextPointStr, instruction.DestinationAzimuth.ToString());
             ShowSingleInstruction(nextPointStr,AzimuthAngle().ToString() );
             ShowSingleInstruction (landmarkStr, instruction.LandmarkName.ToString());
