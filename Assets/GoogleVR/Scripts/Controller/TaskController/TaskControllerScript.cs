@@ -127,11 +127,12 @@ public class TaskControllerScript : MonoBehaviour {
     private void OnGUI()
     {
 		if (!instruction.TaskCompleted) {
-			GUILayout.BeginArea(new Rect(90, 150, 200, 200));
+			GUILayout.BeginArea(new Rect(90, 250, 200, 200));
 			//ShowSingleInstruction (nextPointStr, instruction.DestinationAzimuth.ToString());
             ShowSingleInstruction(nextPointStr,AzimuthAngle().ToString() );
             ShowSingleInstruction (landmarkStr, instruction.LandmarkName.ToString());
-			ShowSingleInstruction (azimuthStr, instruction.CurrentAzimuth.ToString());
+            UpdateCurrentAzimuth();
+            ShowSingleInstruction (azimuthStr, instruction.CurrentAzimuth.ToString());
 			GUILayout.EndArea ();
 		}
 		else 
@@ -172,7 +173,6 @@ public class TaskControllerScript : MonoBehaviour {
             }
             //myPosition = "CURRENT POSITION:\n\t" + position + ".\nCURRENT TARGET POINT:\n\t" + controlPoints[currentPoint].Key + " " + controlPoints[currentPoint].Value;
 			instruction = targets[currentPoint - 1];
-			UpdateCurrentAzimuth ();
         }
     }
 
