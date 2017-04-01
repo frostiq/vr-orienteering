@@ -116,12 +116,20 @@ public class TaskControllerScript : MonoBehaviour {
         float Cos = z / Mathf.Sqrt(x * x + z * z);
         float angle = Mathf.Acos(Cos)*180/Mathf.PI;
         //Debug.Log("angle =" + angle);
-        if (currentPoint == 4)
+        /*if (currentPoint == 4)
         {
             return (int)angle;
         }
         
-        return 360 - (int)angle;
+        return 360 - (int)angle;*/
+        if (x >= 0)
+        {
+            return 360 - (int)angle;
+        }
+        else
+        {
+            return (int)angle;
+        }
     }
 
     private void OnGUI()
