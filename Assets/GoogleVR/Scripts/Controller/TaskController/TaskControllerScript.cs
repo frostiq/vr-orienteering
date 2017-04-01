@@ -115,13 +115,7 @@ public class TaskControllerScript : MonoBehaviour {
         float z = controlPoints[currentPoint].Value - pos.z;
         float Cos = z / Mathf.Sqrt(x * x + z * z);
         float angle = Mathf.Acos(Cos)*180/Mathf.PI;
-        //Debug.Log("angle =" + angle);
-        /*if (currentPoint == 4)
-        {
-            return (int)angle;
-        }
         
-        return 360 - (int)angle;*/
         if (x >= 0)
         {
             return 360 - (int)angle;
