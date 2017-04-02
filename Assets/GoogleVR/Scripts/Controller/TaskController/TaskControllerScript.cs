@@ -130,7 +130,6 @@ public class TaskControllerScript : MonoBehaviour {
     {
 		if (!instruction.TaskCompleted) {
 			GUILayout.BeginArea(new Rect(90, 250, 200, 200));
-			//ShowSingleInstruction (nextPointStr, instruction.DestinationAzimuth.ToString());
             ShowSingleInstruction(nextPointStr,AzimuthAngle().ToString() );
             ShowSingleInstruction (landmarkStr, instruction.LandmarkName.ToString());
             UpdateCurrentAzimuth();
@@ -142,8 +141,10 @@ public class TaskControllerScript : MonoBehaviour {
             int min = resultTime / 60;
             int sec = resultTime % 60;
             string strToShow = min + ":" + sec+":00";
-			ShowSingleInstruction (taskCompletedStr, /*Time.time.ToString()*/strToShow);
-		}
+            GUILayout.BeginArea(new Rect(90, 250, 400, 50));
+            ShowSingleInstruction (taskCompletedStr, strToShow);
+            GUILayout.EndArea();
+        }
     }
 
 	private void ShowSingleInstruction(string instructionName, string instructionText)
@@ -155,13 +156,11 @@ public class TaskControllerScript : MonoBehaviour {
 	}
 
     void UpdatePlayerPosition() {
-        Debug.Log(controlPoints.Count);
         numberOfSteps++;
         Vector3 position = player.transform.position;
         if (currentPoint < controlPoints.Count) {
             if (inRadius(position.x, position.z)) {
                 currentPoint++;
-                Debug.Log("INCREMENTED: " + currentPoint);
                 if (currentPoint == controlPoints.Count) {
 					instruction.TaskCompleted = true;
                     resultTime = (int)Time.time;
@@ -170,10 +169,8 @@ public class TaskControllerScript : MonoBehaviour {
                     return;
                 } else {
                     successSoundSource.Play();
-                    Debug.Log("Move to the next point. Next point: " + controlPoints[currentPoint]);
                 }
             }
-            //myPosition = "CURRENT POSITION:\n\t" + position + ".\nCURRENT TARGET POINT:\n\t" + controlPoints[currentPoint].Key + " " + controlPoints[currentPoint].Value;
 			instruction = targets[currentPoint - 1];
         }
     }
