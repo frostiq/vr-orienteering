@@ -6,10 +6,10 @@ public class TerrainGen : MonoBehaviour
 {
 
     static float R = 0.05f;
-    static int GRAIN = 15;
+    static int GRAIN = 5;
     static bool FLAT = false;
-    static int width = 1024;
-    static int height = 1024;
+    static int width = 128;
+    static int height = 128;
     static float WH;
     static Color32[] cols;
     static Texture2D texture;
