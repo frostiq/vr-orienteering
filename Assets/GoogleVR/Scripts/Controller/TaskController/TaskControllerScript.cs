@@ -164,7 +164,6 @@ public class TaskControllerScript : MonoBehaviour {
 	}
 
     void UpdatePlayerPosition() {
-        numberOfSteps++;
         Vector3 position = player.transform.position;
         if (currentPoint < controlPoints.Count) {
             if (inRadius(position.x, position.z)) {
