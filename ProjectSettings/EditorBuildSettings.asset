@@ -11,3 +11,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MainScene.unity
   - enabled: 1
     path: Assets/Scenes/About.unity
+  - enabled: 1
+    path: Assets/Scenes/ChooseTaskScene.unity
+  - enabled: 1
+    path: Assets/Scenes/task2.unity

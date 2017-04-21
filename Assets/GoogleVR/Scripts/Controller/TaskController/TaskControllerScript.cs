@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TaskControllerScript : MonoBehaviour {
 	
@@ -144,6 +145,13 @@ public class TaskControllerScript : MonoBehaviour {
             GUILayout.BeginArea(new Rect(90, 250, 400, 50));
             ShowSingleInstruction (taskCompletedStr, strToShow);
             GUILayout.EndArea();
+            int now = (int)Time.time;
+            if(now-resultTime>5)
+            {
+                SceneManager.LoadScene(0);
+            }
+            //SceneManager.LoadScene(0);
+
         }
     }
 

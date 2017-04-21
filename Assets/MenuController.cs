@@ -8,7 +8,7 @@ public class MenuController : MonoBehaviour {
     public void StartTask()
     {
         //Application.LoadLevel(1);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(3);
 
     }
     public void ExitGame()
@@ -21,6 +21,16 @@ public class MenuController : MonoBehaviour {
     }
     public void BackToMainMenu()
     {
+        Debug.Log("Back");
         SceneManager.LoadScene(0);
     }
+    public void LoadFirstTask()
+    {
+        SceneManager.LoadScene(1);
+    }
+    public void LoadSecondTask()
+    {
+        SceneManager.LoadScene(4);
+    }
+
 }
