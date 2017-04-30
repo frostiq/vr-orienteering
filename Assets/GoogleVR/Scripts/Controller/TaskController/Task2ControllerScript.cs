@@ -83,7 +83,7 @@ public class Task2ControllerScript : MonoBehaviour {
                 resStr = "Вы допустили ошибку";
             }
             ShowSingleInstruction(resStr);
-            Debug.Log(finishTime + " " + Time.time);
+//Debug.Log(finishTime + " " + Time.time);
             if(Time.time-finishTime>5.0f)
             {
 
